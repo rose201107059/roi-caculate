@@ -5,15 +5,16 @@ import path from 'path';
 export default function handler(req, res) {
   try {
     console.log('API route: /api/analyze called');
-    const filePath = path.join(process.cwd(), 'public', 'ngl-1.csv');
+    const filePath = path.join(process.cwd(), 'public', 'ngl-new.csv');
     console.log('Reading CSV file from:', filePath);
     const fileContent = fs.readFileSync(filePath, 'utf8');
-    
+
     const data = processData(fileContent);
-    
+
     console.log('Data processed successfully');
-    console.log('Top 5 shops:', data.top5Shops);
-    console.log('First month data:', data.processedData[0]);
+    console.log('Total infringing shops:', data.totalInfringingShops);
+    console.log('Closed shops:', data.closedShops);
+    console.log('Cleared shops:', data.clearedShops);
 
     res.setHeader('Cache-Control', 'no-store');
     res.status(200).json(data);
